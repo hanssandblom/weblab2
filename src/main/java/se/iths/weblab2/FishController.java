@@ -32,4 +32,19 @@ public class FishController {
         return fishService.createFish(fish);
     }
 
+    @DeleteMapping("/fish/{id}")
+    public void delete(@PathVariable Integer id){
+        fishService.delete(id);
+    }
+
+    @PutMapping("/fish/{id}")
+    public FishDto replace(@RequestBody FishDto fishDto, @PathVariable Integer id) {
+        return fishService.replace(id, fishDto);
+    }
+
+    @PatchMapping("/fish/{id}")
+    public FishDto update(@RequestBody FishDto fishDto, @PathVariable Integer id) {
+        return fishService.update(id, fishDto);
+    }
+
 }

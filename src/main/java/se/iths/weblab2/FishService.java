@@ -1,6 +1,8 @@
 package se.iths.weblab2;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,46 @@ public class FishService {
         if (fish.getName().isEmpty())
             throw new RuntimeException();
         return mapp(fishRepository.save(mapp(fish)));
+    }
+
+    public void delete(Integer id) {
+        fishRepository.deleteById(id);
+    }
+
+    public FishDto replace(Integer id, FishDto fishDto) {
+        Optional<Fish> fish = fishRepository.findById(id);
+        if(fish.isPresent())
+        {
+            Fish updateFish = fish.get();
+            updateFish.setName(fishDto.getName());
+            updateFish.setType(fishDto.getType());
+            updateFish.setGender(fishDto.getGender());
+            return mapp(fishRepository.save(updateFish));
+        }
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Id " + id + " not found.");
+    }
+
+    public FishDto update(Integer id, FishDto fishDto) {
+        Optional<Fish> fish = fishRepository.findById(id);
+        if( fish.isPresent())
+        {
+            Fish updateFish = fish.get();
+            if( fishDto.getName() != null) {
+                updateFish.setName(fishDto.getName());
+            }
+            if( fishDto.getType() != null) {
+                updateFish.setType(fishDto.getType());
+            }
+            if( fishDto.getGender() != null) {
+                updateFish.setGender(fishDto.getGender());
+            }
+            return mapp(fishRepository.save(updateFish));
+        }
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Id " + id + " not found.");
     }
 
     public FishDto mapp(Fish fish){
