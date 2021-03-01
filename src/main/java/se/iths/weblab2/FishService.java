@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FishService {
+public class FishService implements se.iths.weblab2.Service {
 
-    private FishRepository fishRepository;
+    public FishRepository fishRepository;
 
     public FishService(FishRepository fishRepository) {
         this.fishRepository = fishRepository;
@@ -43,6 +43,7 @@ public class FishService {
             updateFish.setName(fishDto.getName());
             updateFish.setType(fishDto.getType());
             updateFish.setGender(fishDto.getGender());
+            updateFish.setWeight(fishDto.getWeight());
             return mapp(fishRepository.save(updateFish));
         }
         else
@@ -64,6 +65,9 @@ public class FishService {
             if( fishDto.getGender() != null) {
                 updateFish.setGender(fishDto.getGender());
             }
+            if( fishDto.getWeight() != 0) {
+                updateFish.setWeight(fishDto.getWeight());
+            }
             return mapp(fishRepository.save(updateFish));
         }
         else
@@ -72,11 +76,11 @@ public class FishService {
     }
 
     public FishDto mapp(Fish fish){
-        return new FishDto(fish.getId(), fish.getName(), fish.getType(), fish.getGender());
+        return new FishDto(fish.getId(), fish.getName(), fish.getType(), fish.getGender(), fish.getWeight());
     }
 
     public Fish mapp(FishDto fishDto){
-        return new Fish(fishDto.getId(), fishDto.getName(), fishDto.getType(), fishDto.getGender());
+        return new Fish(fishDto.getId(), fishDto.getName(), fishDto.getType(), fishDto.getGender(), fishDto.getWeight());
     }
 
     public Optional<FishDto> mapp(Optional<Fish> optionalFish){

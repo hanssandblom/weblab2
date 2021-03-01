@@ -10,41 +10,46 @@ import java.util.List;
 @RestController
 public class FishController {
 
-    private FishService fishService;
+    private final Service service;
 
-    public FishController(FishService fishService) {
-        this.fishService = fishService;
+    public FishController(Service service) {
+        this.service = service;
     }
 
     @GetMapping("/fish")
     public List<FishDto> all(){
-        return fishService.getAllFish();
+        return service.getAllFish();
     }
 
     @GetMapping("/fish/{id}")
     public FishDto one(@PathVariable Integer id){
-        return fishService.getOne(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find id " + id));
+        return service.getOne(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find id " + id));
     }
 
     @PostMapping("/fish")
     @ResponseStatus(HttpStatus.CREATED)
     public FishDto create(@RequestBody FishDto fish){
-        return fishService.createFish(fish);
+        return service.createFish(fish);
     }
 
     @DeleteMapping("/fish/{id}")
     public void delete(@PathVariable Integer id){
-        fishService.delete(id);
+        service.delete(id);
     }
 
     @PutMapping("/fish/{id}")
     public FishDto replace(@RequestBody FishDto fishDto, @PathVariable Integer id) {
-        return fishService.replace(id, fishDto);
+        return service.replace(id, fishDto);
     }
 
     @PatchMapping("/fish/{id}")
     public FishDto update(@RequestBody FishDto fishDto, @PathVariable Integer id) {
-        return fishService.update(id, fishDto);
+        return service.update(id, fishDto);
     }
-
+/*
+    @RequestMapping(value ="/fish/search", method = RequestMethod.GET)
+    public FishDto search(@RequestParam (value = "search", required = false)FishDto fishDto) {
+        return fishDto;
+    }
+*/
 }

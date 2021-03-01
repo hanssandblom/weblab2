@@ -5,12 +5,14 @@ public class FishDto {
     private String name;
     private String type;
     private String gender;
+    private float weight;
 
-    public FishDto(int id, String name, String type, String gender) {
+    public FishDto(int id, String name, String type, String gender, float weight) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.gender = gender;
+        this.weight = weight;
     }
 
     public int getId() {
@@ -43,5 +45,13 @@ public class FishDto {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
     }
 }
