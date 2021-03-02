@@ -12,9 +12,9 @@ public class Fish {
     private String name;
     private String type;
     private String gender;
-    private float weight;
+    private double weight;
 
-    public Fish(int id, String name, String type, String gender, float weight) {
+    public Fish(int id, String name, String type, String gender, double weight) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -58,11 +58,11 @@ public class Fish {
         this.gender = gender;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 }
